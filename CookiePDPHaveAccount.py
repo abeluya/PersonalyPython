@@ -1,5 +1,5 @@
 # This Script will test a PDP with the "Have an account" text under the download button in the CTA
-
+# Example ticket: WU-9954
 
 from tkinter import Tk
 from selenium import webdriver
@@ -56,7 +56,7 @@ pages_to_check_list = []
 #Variables end
 
 print(urlList)
-print(len(urlList))
+print("List Size:", len(urlList))
 driver = webdriver.Chrome()
 print(cookies)
 if coockieneeded:  # Inserts the cookie
@@ -71,16 +71,15 @@ for url in urlList:
     try:
         driver.get(url)
         error = False
-        print(url)
         if exist_element(driver, "producthero--download-button-footer "):
             if exist_login(driver,button_text):
-                print("Have Account Visible")
+                print(url, ": Have Account Visible")
             else:
-                "Cannot find login button"
+                print(url, ": Cannot find login button")
                 all_ok = False
                 error = True
         else:
-            print("Have Account not visible")
+            print(url, ": Have Account not visible")
             all_ok = False
             error = True
     finally:

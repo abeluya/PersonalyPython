@@ -1,4 +1,5 @@
 # This Script will test a list of URLs that has CMP codes (Only for regforms)
+# Example Ticket: WU-9814
 
 
 from tkinter import Tk
@@ -39,13 +40,13 @@ pages_to_check_list = []
 #variables end
 
 print(urlList)
-print(len(urlList))
+print("List Size:", len(urlList))
 driver = webdriver.Chrome()
 for url in urlList:
     try:
         if len(url) > 0:
-            error = False
             print(url)
+            error = False
             driver.get(url)
             if exist_header(driver, reg_header):
                 print("RegForm Header Ok")

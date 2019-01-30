@@ -1,4 +1,5 @@
 # This Script will test a PDP page and its regfom
+# Example Ticket: WU-9830
 
 
 from tkinter import Tk
@@ -71,7 +72,7 @@ print(cookies)
 
 urlList = Tk().clipboard_get().split('\n') #Get the URLs from the clipboard
 print(urlList)
-print(len(urlList))
+print("List Size:", len(urlList))
 driver = webdriver.Chrome()
 print(cookies)
 for url in urlList:
