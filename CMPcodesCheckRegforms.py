@@ -28,7 +28,7 @@ def exist_header(driver, header):
 
 
 #Script configuration section
-reg_header = "Zero in on Your Database Pain" #Change it by the header you want to find
+reg_header = "Due diligence means deeper visibility" #Change it by the header you want to find
 
 
 #Script configuration section end

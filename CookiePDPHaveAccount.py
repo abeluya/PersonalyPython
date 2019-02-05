@@ -69,19 +69,20 @@ if coockieneeded:  # Inserts the cookie
         driver.add_cookie(cookies)
 for url in urlList:
     try:
-        driver.get(url)
-        error = False
-        if exist_element(driver, "producthero--download-button-footer "):
-            if exist_login(driver,button_text):
-                print(url, ": Have Account Visible")
+        if url is not '':
+            driver.get(url)
+            error = False
+            if exist_element(driver, "producthero--download-button-footer "):
+                if exist_login(driver,button_text):
+                    print(url, ": Have Account Visible")
+                else:
+                    print(url, ": Cannot find login button")
+                    all_ok = False
+                    error = True
             else:
-                print(url, ": Cannot find login button")
+                print(url, ": Have Account not visible")
                 all_ok = False
                 error = True
-        else:
-            print(url, ": Have Account not visible")
-            all_ok = False
-            error = True
     finally:
         if error:
             pages_to_check_list.append(url)
