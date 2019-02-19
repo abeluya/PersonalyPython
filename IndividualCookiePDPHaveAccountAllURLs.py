@@ -87,11 +87,11 @@ print(cookies)
 #Variables
 all_ok = True
 pages_to_check_list = []
+acronym_list = [Acronym()]
+synonyms_list = []
 
 #Variables end
 
-acronym_list = [Acronym()]
-synonyms_list = []
 urlList = Tk().clipboard_get().split('\n')  # Get the URLs from the clipboard
 for url in urlList:
     if len(url) > 0:
@@ -129,52 +129,53 @@ try:
         if x.get_url() is not '':
             print("URL: ", x.get_url(), "Valid Synonims: ", x.get_synonims())
             for y in synonyms_list:
-                value = "{\"VisitorGUID\": \"77e3d2fd-5ed2-4f4c-ae51-4f5a603bd2f4\", \"Owned\" : [\"" + y + "\"], \"Role\" : \"S\", \"Virtual Classroom Name\" : [\"Classroom name 1\",\"Classroom name 2\"],\"VR PMM Category\" : [\"Dameware\",\"Engineer's Web Toolset\"]}"
-                cookie = {
-                    "domain": ".solarwinds.com",
-                    "expirationDate": "1580394557",
-                    "hostOnly": "false",
-                    "httpOnly": "false",
-                    "name": "CPDetails",
-                    "path": "/",
-                    "sameSite": "no_restriction",
-                    "secure": "false",
-                    "session": "false",
-                    "storeId": "0",
-                    "value": value,
-                    "id": "4"}
-                driver.add_cookie(cookie)
-                driver.get(x.get_url())
-                error = False
-                if exist_element(driver, "producthero--download-button-footer "):
-                    if exist_login(driver,button_text):
-                        print(y.strip(), ": Have Account Visible")
-                        if hide_lock:
-                            if not visible_lock(driver): #Check that lock icon is removed
-                                print(y, ": Lock icon Hidden")
-                            else:
-                                print(y, ": Lock icon Visible")
-                                all_ok = False
-                                error = True
+                if y is not '':
+                    value = "{\"VisitorGUID\": \"77e3d2fd-5ed2-4f4c-ae51-4f5a603bd2f4\", \"Owned\" : [\"" + y + "\"], \"Role\" : \"S\", \"Virtual Classroom Name\" : [\"Classroom name 1\",\"Classroom name 2\"],\"VR PMM Category\" : [\"Dameware\",\"Engineer's Web Toolset\"]}"
+                    cookie = {
+                        "domain": ".solarwinds.com",
+                        "expirationDate": "1580394557",
+                        "hostOnly": "false",
+                        "httpOnly": "false",
+                        "name": "CPDetails",
+                        "path": "/",
+                        "sameSite": "no_restriction",
+                        "secure": "false",
+                        "session": "false",
+                        "storeId": "0",
+                        "value": value,
+                        "id": "4"}
+                    driver.add_cookie(cookie)
+                    driver.get(x.get_url())
+                    error = False
+                    if exist_element(driver, "producthero--download-button-footer "):
+                        if exist_login(driver,button_text):
+                            print(y.strip(), ": Have Account Visible")
+                            if hide_lock:
+                                if not visible_lock(driver): #Check that lock icon is removed
+                                    print(y, ": Lock icon Hidden")
+                                else:
+                                    print(y, ": Lock icon Visible")
+                                    all_ok = False
+                                    error = True
+                        else:
+                            print(y.strip(), ": Cannot find login button")
+                            all_ok = False
+                            error = True
+                            if hide_lock:
+                                if not visible_lock(driver): #Check that lock icon is removed
+                                    print(y, ": Lock icon Hidden")
+                                else:
+                                    print(y, ": Lock icon Visible")
+                                    all_ok = False
+                                    error = True
                     else:
-                        print(y.strip(), ": Cannot find login button")
+                        print(y, ": Have Account not visible")
                         all_ok = False
                         error = True
-                        if hide_lock:
-                            if not visible_lock(driver): #Check that lock icon is removed
-                                print(y, ": Lock icon Hidden")
-                            else:
-                                print(y, ": Lock icon Visible")
-                                all_ok = False
-                                error = True
-                else:
-                    print(y, ": Have Account not visible")
-                    all_ok = False
-                    error = True
-                driver.delete_all_cookies()
-                if error:
-                    if not x.get_url() in pages_to_check_list:
-                        pages_to_check_list.append(x.get_url())
+                    driver.delete_all_cookies()
+                    if error:
+                        if not x.get_url() in pages_to_check_list:
+                            pages_to_check_list.append(x.get_url())
 finally:
     driver.quit()
 
@@ -182,7 +183,7 @@ if all_ok:
     print("All pages are personalized")
 else:
     print("Some pages are not personalized")
-    for urls in pages_to_check_list:
-        print(urls)
+    for bad_urls in pages_to_check_list:
+        print(bad_urls)
 
 
