@@ -105,9 +105,11 @@ for url in urlList:
 for b in acronym_list:
     print(b.get_url())
     for y in b.get_synonims():
-        if not y.strip() in synonyms_list:
-            synonyms_list.append(y.strip())
-
+        if not y in synonyms_list:
+            if y is not '':
+                synonyms_list.append(y.strip())
+print("Synonims count:")
+print(len(synonyms_list))
 for b in synonyms_list:
     print(b)
 

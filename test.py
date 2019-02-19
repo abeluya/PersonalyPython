@@ -21,6 +21,5 @@ pages_to_check_list = []
 # variables end
 
 print("List Size:", len(urlList))
-driver = webdriver.Chrome()
+print(urlList)
 
-for url in urlList:
