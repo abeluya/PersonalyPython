@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 class Acronym:
     url = ""
@@ -76,10 +77,16 @@ cookies = {
     "name": "CPDetails",
     "path": "/",
     "sameSite": "no_restriction",
-    "secure": "false",
-    "session": "false",
+    "secure": "False",
+    "session": "False",
     "storeId": "0",
-    "value": "{\"VisitorGUID\": \"77e3d2fd-5ed2-4f4c-ae51-4f5a603bd2f4\", \"Owned\" : [\"DPA\",\"DPA for DB2\",\"DPA MySQL\",\"DPA Oracle\",\"DPA for SAP ASE\",\"DPA for SQL Server\",\"DPA VM Option\",\"NAT\",\"NCM\",\"NPM\",\"NTM\",\"Patch\",\"SAM\",\"SRM\",\"WPM\",\"DPA\",\"UDT\",\"Virtualization\",\"IPAM\",\"NTA\",\"Log Manager for Orion Software\",\"Database Performance Analyzer for Oracle\",\"Database Performance Analyzer for MySQL\",\"Log and Event Manager\",\"DPA SQL\"], \"Role\" : \"S\", \"Virtual Classroom Name\" : [\"Classroom name 1\",\"Classroom name 2\"],\"VR PMM Category\" : [\"Dameware\",\"Engineer's Web Toolset\"]}",
+    "value": "{\"VisitorGUID\": \"77e3d2fd-5ed2-4f4c-ae51-4f5a603bd2f4\", \"Owned\" : [\"DPA\",\"DPA for DB2\","
+             "\"DPA MySQL\",\"DPA Oracle\",\"DPA for SAP ASE\",\"DPA for SQL Server\",\"DPA VM Option\",\"NAT\","
+             "\"NCM\",\"NPM\",\"NTM\",\"Patch\",\"SAM\",\"SRM\",\"WPM\",\"DPA\",\"UDT\",\"Virtualization\",\"IPAM\","
+             "\"NTA\",\"Log Manager for Orion Software\",\"Database Performance Analyzer for Oracle\",\"Database "
+             "Performance Analyzer for MySQL\",\"Log and Event Manager\",\"DPA SQL\"], \"Role\" : \"S\", "
+             "\"Virtual Classroom Name\" : [\"Classroom name 1\",\"Classroom name 2\"],\"VR PMM Category\" : ["
+             "\"Dameware\",\"Engineer's Web Toolset\"]}",
     "id": "4"}
 print(cookies)
 # Cookie definition
@@ -108,7 +115,7 @@ for b in acronym_list:
         if not y in synonyms_list:
             if y is not '':
                 synonyms_list.append(y.strip())
-print("Synonims count:")
+print("Synonyms count:")
 print(len(synonyms_list))
 for b in synonyms_list:
     print(b)
@@ -135,22 +142,22 @@ try:
                     value = "{\"VisitorGUID\": \"77e3d2fd-5ed2-4f4c-ae51-4f5a603bd2f4\", \"Owned\" : [\"" + y + "\"], \"Role\" : \"S\", \"Virtual Classroom Name\" : [\"Classroom name 1\",\"Classroom name 2\"],\"VR PMM Category\" : [\"Dameware\",\"Engineer's Web Toolset\"]}"
                     cookie = {
                         "domain": ".solarwinds.com",
-                        "expirationDate": "1580394557",
+                        "expirationDate": "1588536886",
                         "hostOnly": "false",
-                        "httpOnly": "false",
+                        #"httpOnly": "false",
                         "name": "CPDetails",
                         "path": "/",
                         "sameSite": "no_restriction",
-                        "secure": "false",
-                        "session": "false",
+                        #"secure": "False",
+                        "session": "False",
                         "storeId": "0",
                         "value": value,
                         "id": "4"}
                     driver.add_cookie(cookie)
                     driver.get(x.get_url())
                     error = False
-                    if exist_element(driver, "producthero--download-button-footer "):
-                        if exist_login(driver,button_text):
+                    if exist_element(driver, "producthero--download-button-footer"):
+                        if exist_login(driver, button_text):
                             print(y.strip(), ": Have Account Visible")
                             if hide_lock:
                                 if not visible_lock(driver): #Check that lock icon is removed
